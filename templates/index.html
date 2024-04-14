@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Massage Chair Remote Control</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+  <h1 class="text-center">Massage Chair Remote Control</h1>
+  
+  <div class="row mt-5">
+    <div class="col-md-6">
+      <h2>查询</h2>
+      <button id="btnQuery" class="btn btn-primary mb-2" data-message="59 59 06 01 01 BA">查询按摩椅状态</button>
+    </div>
+    <div class="col-md-6">
+      <h2>开关</h2>
+      <button id="btnOn" class="btn btn-success mb-2" data-message="59 59 06 02 01 BB">打开按摩椅</button>
+      <button id="btnOff" class="btn btn-danger mb-2" data-message="59 59 06 02 02 BC">结束按摩,关闭按摩椅</button>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h2>自动模式</h2>
+      <button id="btnMode1" class="btn btn-primary mb-2" data-message="59 59 06 03 01 BC">自动模式</button>
+      <button id="btnMode2" class="btn btn-primary mb-2" data-message="59 59 06 03 02 BD">舒缓按摩/舒缓模式</button>
+      <button id="btnMode3" class="btn btn-primary mb-2" data-message="59 59 06 03 03 BE">强力按摩/强力模式</button>
+      <button id="btnMode4" class="btn btn-primary mb-2" data-message="59 59 06 03 04 BF">拉伸模式</button>
+      <button id="btnMode5" class="btn btn-primary mb-2" data-message="59 59 06 03 05 C0">睡眠模式</button>
+    </div>
+    <div class="col-md-6">
+      <h2>按摩时间</h2>
+      <button class="btn btn-primary mb-2" data-message="59 59 06 04 05 C1">定时</button>
+      <button class="btn btn-primary mb-2" data-message="59 59 06 04 05 C1">按摩5分钟</button>
+      <button class="btn btn-primary mb-2" data-message="59 59 06 04 0A C6">按摩10分钟</button>
+      <button class="btn btn-primary mb-2" data-message="59 59 06 04 0F CB">按摩15分钟</button>
+      <button class="btn btn-primary mb-2" data-message="59 59 06 04 14 D0">按摩20分钟</button>
+      <button class="btn btn-primary mb-2" data-message="59 59 06 04 19 D5">按摩25分钟</button>
+      <button class="btn btn-primary mb-2" data-message="59 59 06 04 1E DA">按摩30分钟</button>
+    </div>
+    <div class="col-md-6">
+        <h2>按摩速度</h2>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 05 01 BE">速度调到1档</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 05 02 BF">速度调到2档</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 05 03 C0">速度调到3档</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 05 04 C1">速度调到4档</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 05 05 C3">速度调到5档</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 05 06 C3">速度调到6档</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 05 06 C3">力度</button>
+      </div>
+      <div class="col-md-6">
+        <h2>手动按摩</h2>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 06 01 BF">手动按摩</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 06 02 C0">揉捏</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 06 03 C1">敲击</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 06 04 C2">拍打</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 06 05 C3">指压</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 06 06 C4">揉敲</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 06 07 C5">揉拍</button>
+      </div>
+      <div class="col-md-6">
+        <h2>机芯幅度</h2>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 07 01 C0">调宽</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 07 02 C1">调中</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 07 03 C2">调窄</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 07 04 C3">宽度调节</button>
+      </div>
+      <div class="col-md-6">
+        <h2>按摩位置</h2>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 08 01 C1">全身按摩</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 08 02 C2">局部按摩</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 08 03 C3">定点按摩</button>
+      </div>
+      <div class="col-md-6">
+        <h2>气囊位置</h2>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 09 01 C2">打开气囊</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 09 02 C3">关闭气囊</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 09 03 C4">打开头部气囊</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 09 04 C5">关闭头部气囊</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 09 05 C6">打开肩部气囊</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 09 06 C7">关闭肩部气囊</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 09 07 C8">打开手臂气囊</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 09 08 C9">关闭手臂气囊</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 09 09 CA">打开臀部气囊</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 09 0A CB">关闭臀部气囊</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 09 0B CC">打开腿部气囊</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 09 0C CD">关闭腿部气囊</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 09 0D CE">气压手动</button>
+      </div>
+      <div class="col-md-6">
+        <h2>气压</h2>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0A 01 C3">气压调到1档</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0A 02 C4">气压调到2档</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0A 03 C5">气压调到3档</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0A 03 C5">气压强度</button>
+      </div>
+      <div class="col-md-6">
+        <h2>其他</h2>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0B 01 C4">零重力</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0B 02 C5">关闭零重力</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0B 04 C7">打开加热</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0B 05 C8">关闭加热</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0B 06 C9">打开滚轮</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0B 07 CA">关闭滚轮</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0B 08 CB">打开振动</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0B 09 CC">关闭振动</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 09 CD">靠背升</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 0A CE">靠背降</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 1C E0">行走上行</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 1D E1">行走下行</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 1E E2">小腿升</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 1F E3">小腿降</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 1D E1">脚底滚轮</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 1E E2">加热</button>
+        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 1F E3">蓝牙</button>
+      </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const buttons = document.querySelectorAll('button');
+      const webSocket = new WebSocket('wss://xcl7vxzurl.execute-api.ap-southeast-2.amazonaws.com/demo');
+  
+      buttons.forEach(button => {
+        button.addEventListener('click', function () {
+          const message = this.getAttribute('data-message');
+          console.log(message)
+          var payload = JSON.stringify({ "action": "sendMessage", "message": message });
+          console.log(payload)
+          webSocket.send(payload);
+        });
+      });
+  
+      // Handle WebSocket events if needed
+      webSocket.onopen = function () {
+        console.log('WebSocket connected.');
+      };
+  
+      webSocket.onclose = function () {
+        console.log('WebSocket connection closed.');
+      };
+  
+      webSocket.onerror = function (error) {
+        console.error('WebSocket error:', error);
+      };
+    });
+  </script>
+</body>
+</html>
