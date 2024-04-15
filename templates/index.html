@@ -10,113 +10,118 @@
 
 <div class="container mt-5">
   <h1 class="text-center">Massage Chair Remote Control</h1>
+
+  <div class="text-end mb-3">
+    <button class="btn btn-primary" onclick="changeLanguage('en')">EN</button>
+    <button class="btn btn-primary" onclick="changeLanguage('zh')">中文</button>
+  </div>
   
   <div class="row mt-5">
     <div class="col-md-6">
-      <h2>查询</h2>
-      <button id="btnQuery" class="btn btn-primary mb-2" data-message="59 59 06 01 01 BA">查询按摩椅状态</button>
+      <h2 id="hQuery"></h2>
+      <button id="btnQuery" class="btn btn-primary mb-2" data-message="59 59 06 01 01 BA"></button>
     </div>
     <div class="col-md-6">
-      <h2>开关</h2>
-      <button id="btnOn" class="btn btn-success mb-2" data-message="59 59 06 02 01 BB">打开按摩椅</button>
-      <button id="btnOff" class="btn btn-danger mb-2" data-message="59 59 06 02 02 BC">结束按摩,关闭按摩椅</button>
+      <h2 id="hOnOff"></h2>
+      <button id="btnOn" class="btn btn-success mb-2" data-message="59 59 06 02 01 BB"></button>
+      <button id="btnOff" class="btn btn-danger mb-2" data-message="59 59 06 02 02 BC"></button>
     </div>
   </div>
 
   <div class="row mt-4">
     <div class="col-md-6">
-      <h2>自动模式</h2>
-      <button id="btnMode1" class="btn btn-primary mb-2" data-message="59 59 06 03 01 BC">自动模式</button>
-      <button id="btnMode2" class="btn btn-primary mb-2" data-message="59 59 06 03 02 BD">舒缓按摩/舒缓模式</button>
-      <button id="btnMode3" class="btn btn-primary mb-2" data-message="59 59 06 03 03 BE">强力按摩/强力模式</button>
-      <button id="btnMode4" class="btn btn-primary mb-2" data-message="59 59 06 03 04 BF">拉伸模式</button>
-      <button id="btnMode5" class="btn btn-primary mb-2" data-message="59 59 06 03 05 C0">睡眠模式</button>
+      <h2 id="hMode"></h2>
+      <button id="btnMode1" class="btn btn-primary mb-2" data-message="59 59 06 03 01 BC"></button>
+      <button id="btnMode2" class="btn btn-primary mb-2" data-message="59 59 06 03 02 BD"></button>
+      <button id="btnMode3" class="btn btn-primary mb-2" data-message="59 59 06 03 03 BE"></button>
+      <button id="btnMode4" class="btn btn-primary mb-2" data-message="59 59 06 03 04 BF"></button>
+      <button id="btnMode5" class="btn btn-primary mb-2" data-message="59 59 06 03 05 C0"></button>
     </div>
     <div class="col-md-6">
-      <h2>按摩时间</h2>
-      <button class="btn btn-primary mb-2" data-message="59 59 06 04 05 C1">定时</button>
-      <button class="btn btn-primary mb-2" data-message="59 59 06 04 05 C1">按摩5分钟</button>
-      <button class="btn btn-primary mb-2" data-message="59 59 06 04 0A C6">按摩10分钟</button>
-      <button class="btn btn-primary mb-2" data-message="59 59 06 04 0F CB">按摩15分钟</button>
-      <button class="btn btn-primary mb-2" data-message="59 59 06 04 14 D0">按摩20分钟</button>
-      <button class="btn btn-primary mb-2" data-message="59 59 06 04 19 D5">按摩25分钟</button>
-      <button class="btn btn-primary mb-2" data-message="59 59 06 04 1E DA">按摩30分钟</button>
+      <h2 id="hTime"></h2>
+      <button id="btnTime1" class="btn btn-primary mb-2" data-message="59 59 06 04 05 C1"></button>
+      <button id="btnTime2" class="btn btn-primary mb-2" data-message="59 59 06 04 05 C1"></button>
+      <button id="btnTime3" class="btn btn-primary mb-2" data-message="59 59 06 04 0A C6"></button>
+      <button id="btnTime4" class="btn btn-primary mb-2" data-message="59 59 06 04 0F CB"></button>
+      <button id="btnTime5" class="btn btn-primary mb-2" data-message="59 59 06 04 14 D0"></button>
+      <button id="btnTime6" class="btn btn-primary mb-2" data-message="59 59 06 04 19 D5"></button>
+      <button id="btnTime7" class="btn btn-primary mb-2" data-message="59 59 06 04 1E DA"></button>
     </div>
     <div class="col-md-6">
-        <h2>按摩速度</h2>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 05 01 BE">速度调到1档</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 05 02 BF">速度调到2档</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 05 03 C0">速度调到3档</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 05 04 C1">速度调到4档</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 05 05 C3">速度调到5档</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 05 06 C3">速度调到6档</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 05 06 C3">力度</button>
+        <h2 id="hSpeed"></h2>
+        <button id="btnSpeed1" class="btn btn-primary mb-2" data-message="59 59 06 05 01 BE"></button>
+        <button id="btnSpeed2" class="btn btn-primary mb-2" data-message="59 59 06 05 02 BF"></button>
+        <button id="btnSpeed3" class="btn btn-primary mb-2" data-message="59 59 06 05 03 C0"></button>
+        <button id="btnSpeed4" class="btn btn-primary mb-2" data-message="59 59 06 05 04 C1"></button>
+        <button id="btnSpeed5" class="btn btn-primary mb-2" data-message="59 59 06 05 05 C3"></button>
+        <button id="btnSpeed6" class="btn btn-primary mb-2" data-message="59 59 06 05 06 C3"></button>
+        <button id="btnSpeed7" class="btn btn-primary mb-2" data-message="59 59 06 05 06 C3"></button>
       </div>
       <div class="col-md-6">
-        <h2>手动按摩</h2>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 06 01 BF">手动按摩</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 06 02 C0">揉捏</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 06 03 C1">敲击</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 06 04 C2">拍打</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 06 05 C3">指压</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 06 06 C4">揉敲</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 06 07 C5">揉拍</button>
+        <h2 id="hManual"></h2>
+        <button id="btnManual1" class="btn btn-primary mb-2" data-message="59 59 06 06 01 BF"></button>
+        <button id="btnManual2" class="btn btn-primary mb-2" data-message="59 59 06 06 02 C0"></button>
+        <button id="btnManual3" class="btn btn-primary mb-2" data-message="59 59 06 06 03 C1"></button>
+        <button id="btnManual4" class="btn btn-primary mb-2" data-message="59 59 06 06 04 C2"></button>
+        <button id="btnManual5" class="btn btn-primary mb-2" data-message="59 59 06 06 05 C3"></button>
+        <button id="btnManual6" class="btn btn-primary mb-2" data-message="59 59 06 06 06 C4"></button>
+        <button id="btnManual7" class="btn btn-primary mb-2" data-message="59 59 06 06 07 C5"></button>
       </div>
       <div class="col-md-6">
-        <h2>机芯幅度</h2>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 07 01 C0">调宽</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 07 02 C1">调中</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 07 03 C2">调窄</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 07 04 C3">宽度调节</button>
+        <h2 id="hMove"></h2>
+        <button id="btnMove1" class="btn btn-primary mb-2" data-message="59 59 06 07 01 C0"></button>
+        <button id="btnMove2" class="btn btn-primary mb-2" data-message="59 59 06 07 02 C1"></button>
+        <button id="btnMove3" class="btn btn-primary mb-2" data-message="59 59 06 07 03 C2"></button>
+        <button id="btnMove4" class="btn btn-primary mb-2" data-message="59 59 06 07 04 C3"></button>
       </div>
       <div class="col-md-6">
-        <h2>按摩位置</h2>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 08 01 C1">全身按摩</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 08 02 C2">局部按摩</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 08 03 C3">定点按摩</button>
+        <h2  id="hPos"></h2>
+        <button id="btnPos1" class="btn btn-primary mb-2" data-message="59 59 06 08 01 C1"></button>
+        <button id="btnPos2" class="btn btn-primary mb-2" data-message="59 59 06 08 02 C2"></button>
+        <button id="btnPos3" class="btn btn-primary mb-2" data-message="59 59 06 08 03 C3"></button>
       </div>
       <div class="col-md-6">
-        <h2>气囊位置</h2>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 09 01 C2">打开气囊</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 09 02 C3">关闭气囊</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 09 03 C4">打开头部气囊</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 09 04 C5">关闭头部气囊</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 09 05 C6">打开肩部气囊</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 09 06 C7">关闭肩部气囊</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 09 07 C8">打开手臂气囊</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 09 08 C9">关闭手臂气囊</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 09 09 CA">打开臀部气囊</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 09 0A CB">关闭臀部气囊</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 09 0B CC">打开腿部气囊</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 09 0C CD">关闭腿部气囊</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 09 0D CE">气压手动</button>
+        <h2 id="hAir"></h2>
+        <button id="btnAir1" class="btn btn-primary mb-2" data-message="59 59 06 09 01 C2"></button>
+        <button id="btnAir2" class="btn btn-primary mb-2" data-message="59 59 06 09 02 C3"></button>
+        <button id="btnAir3" class="btn btn-primary mb-2" data-message="59 59 06 09 03 C4"></button>
+        <button id="btnAir4" class="btn btn-primary mb-2" data-message="59 59 06 09 04 C5"></button>
+        <button id="btnAir5" class="btn btn-primary mb-2" data-message="59 59 06 09 05 C6"></button>
+        <button id="btnAir6" class="btn btn-primary mb-2" data-message="59 59 06 09 06 C7"></button>
+        <button id="btnAir7" class="btn btn-primary mb-2" data-message="59 59 06 09 07 C8"></button>
+        <button id="btnAir8" class="btn btn-primary mb-2" data-message="59 59 06 09 08 C9"></button>
+        <button id="btnAir9" class="btn btn-primary mb-2" data-message="59 59 06 09 09 CA"></button>
+        <button id="btnAir10" class="btn btn-primary mb-2" data-message="59 59 06 09 0A CB"></button>
+        <button id="btnAir11" class="btn btn-primary mb-2" data-message="59 59 06 09 0B CC"></button>
+        <button id="btnAir12" class="btn btn-primary mb-2" data-message="59 59 06 09 0C CD"></button>
+        <button id="btnAir13" class="btn btn-primary mb-2" data-message="59 59 06 09 0D CE"></button>
       </div>
       <div class="col-md-6">
-        <h2>气压</h2>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0A 01 C3">气压调到1档</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0A 02 C4">气压调到2档</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0A 03 C5">气压调到3档</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0A 03 C5">气压强度</button>
+        <h2  id="hPress"></h2>
+        <button id="btnPress1" class="btn btn-primary mb-2" data-message="59 59 06 0A 01 C3"></button>
+        <button id="btnPress2" class="btn btn-primary mb-2" data-message="59 59 06 0A 02 C4"></button>
+        <button id="btnPress3" class="btn btn-primary mb-2" data-message="59 59 06 0A 03 C5"></button>
+        <button id="btnPress4" class="btn btn-primary mb-2" data-message="59 59 06 0A 03 C5"></button>
       </div>
       <div class="col-md-6">
-        <h2>其他</h2>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0B 01 C4">零重力</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0B 02 C5">关闭零重力</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0B 04 C7">打开加热</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0B 05 C8">关闭加热</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0B 06 C9">打开滚轮</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0B 07 CA">关闭滚轮</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0B 08 CB">打开振动</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0B 09 CC">关闭振动</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 09 CD">靠背升</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 0A CE">靠背降</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 1C E0">行走上行</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 1D E1">行走下行</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 1E E2">小腿升</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 1F E3">小腿降</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 1D E1">脚底滚轮</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 1E E2">加热</button>
-        <button class="btn btn-primary mb-2" data-message="59 59 06 0C 1F E3">蓝牙</button>
+        <h2 id="hOthers"></h2>
+        <button id="btnOthers1" class="btn btn-primary mb-2" data-message="59 59 06 0B 01 C4"></button>
+        <button id="btnOthers2" class="btn btn-primary mb-2" data-message="59 59 06 0B 02 C5"></button>
+        <button id="btnOthers3" class="btn btn-primary mb-2" data-message="59 59 06 0B 04 C7"></button>
+        <button id="btnOthers4" class="btn btn-primary mb-2" data-message="59 59 06 0B 05 C8"></button>
+        <button id="btnOthers5" class="btn btn-primary mb-2" data-message="59 59 06 0B 06 C9"></button>
+        <button id="btnOthers6" class="btn btn-primary mb-2" data-message="59 59 06 0B 07 CA"></button>
+        <button id="btnOthers7" class="btn btn-primary mb-2" data-message="59 59 06 0B 08 CB"></button>
+        <button id="btnOthers8" class="btn btn-primary mb-2" data-message="59 59 06 0B 09 CC"></button>
+        <button id="btnOthers9" class="btn btn-primary mb-2" data-message="59 59 06 0C 09 CD"></button>
+        <button id="btnOthers10" class="btn btn-primary mb-2" data-message="59 59 06 0C 0A CE"></button>
+        <button id="btnOthers11" class="btn btn-primary mb-2" data-message="59 59 06 0C 1C E0"></button>
+        <button id="btnOthers12" class="btn btn-primary mb-2" data-message="59 59 06 0C 1D E1"></button>
+        <button id="btnOthers13" class="btn btn-primary mb-2" data-message="59 59 06 0C 1E E2"></button>
+        <button id="btnOthers14" class="btn btn-primary mb-2" data-message="59 59 06 0C 1F E3"></button>
+        <button id="btnOthers15" class="btn btn-primary mb-2" data-message="59 59 06 0C 1D E1"></button>
+        <button id="btnOthers16" class="btn btn-primary mb-2" data-message="59 59 06 0C 1E E2"></button>
+        <button id="btnOthers17" class="btn btn-primary mb-2" data-message="59 59 06 0C 1F E3"></button>
       </div>
   </div>
 
@@ -151,6 +156,200 @@
         console.error('WebSocket error:', error);
       };
     });
+
+    // Function to change language
+    function changeLanguage(lang) {
+      // Define translations based on the selected language
+      var translations = {};
+      switch (lang) {
+        case 'en':
+          // English translations
+          translations = {
+            'btnQuery': 'Check massage chair status',
+            'btnOn': 'Turn on the massage chair',
+            'btnOff': 'End massage, turn off the massage chair',
+            'btnMode1': 'Automatic mode',
+            'btnMode2': 'Gentle massage mode',
+            'btnMode3': 'Intense massage mode',
+            'btnMode4': 'Stretching mode',
+            'btnMode5': 'Sleep mode',
+            'btnTime1': 'Massage for 5 minutes',
+            'btnTime2': 'Massage for 10 minutes',
+            'btnTime3': 'Massage for 15 minutes',
+            'btnTime4': 'Massage for 20 minutes',
+            'btnTime5': 'Massage for 25 minutes',
+            'btnTime6': 'Massage for 30 minutes',
+            'btnTime7': 'Timer',
+            'btnSpeed1': 'Adjust speed to level 1',
+            'btnSpeed2': 'Adjust speed to level 2',
+            'btnSpeed3': 'Adjust speed to level 3',
+            'btnSpeed4': 'Adjust speed to level 4',
+            'btnSpeed5': 'Adjust speed to level 5',
+            'btnSpeed6': 'Adjust speed to level 6',
+            'btnSpeed7': 'Intensity',
+            'btnManual1': 'Manual massage',
+            'btnManual2': 'Kneading',
+            'btnManual3': 'Tapping',
+            'btnManual4': 'Patting',
+            'btnManual5': 'Acupressure',
+            'btnManual6': 'Kneading and tapping',
+            'btnManual7': 'Kneading and patting',
+            'btnMove1': 'Adjust width',
+            'btnMove2': 'Adjust mid',
+            'btnMove3': 'Adjust narrow',
+            'btnMove4': 'Width adjustment',
+            'btnPos1': 'Full body massage',
+            'btnPos2': 'Partial massage',
+            'btnPos3': 'Spot massage',
+            'btnAir1': 'Turn on airbags',
+            'btnAir2': 'Turn off airbags',
+            'btnAir3': 'Turn on head airbags',
+            'btnAir4': 'Turn off head airbags',
+            'btnAir5': 'Turn on shoulder airbags',
+            'btnAir6': 'Turn off shoulder airbags',
+            'btnAir7': 'Turn on arm airbags',
+            'btnAir8': 'Turn off arm airbags',
+            'btnAir9': 'Turn on hip airbags',
+            'btnAir10': 'Turn off hip airbags',
+            'btnAir11': 'Turn on leg airbags',
+            'btnAir12': 'Turn off leg airbags',
+            'btnAir13': 'Manual air pressure',
+            'btnPress1': 'Adjust air pressure to level 1',
+            'btnPress2': 'Adjust air pressure to level 2',
+            'btnPress3': 'Adjust air pressure to level 3',
+            'btnPress4': 'Air pressure intensity',
+            'btnOthers1': 'Zero gravity',
+            'btnOthers2': 'Turn off zero gravity',
+            'btnOthers3': 'Turn on heating',
+            'btnOthers4': 'Turn off heating',
+            'btnOthers5': 'Turn on rollers',
+            'btnOthers6': 'Turn off rollers',
+            'btnOthers7': 'Turn on vibration',
+            'btnOthers8': 'Turn off vibration',
+            'btnOthers9': 'Raise backrest',
+            'btnOthers10': 'Lower backrest',
+            'btnOthers11': 'Walk up',
+            'btnOthers12': 'Walk down',
+            'btnOthers13': 'Raise calves',
+            'btnOthers14': 'Lower calves',
+            'btnOthers15': 'Foot roller',
+            'btnOthers16': 'Heating',
+            'btnOthers17': 'Bluetooth',
+            'hQuery': 'Query',
+            'hOnOff': 'Power On/Off',
+            'hMode': 'Automatic Mode',
+            'hTime': 'Massage Time',
+            'hSpeed': 'Massage Speed',
+            'hManual': 'Manual Massage',
+            'hMove': 'Roller Intensity',
+            'hPos': 'Massage Position',
+            'hAir': 'Airbag Position',
+            'hPress': 'Air Pressure',
+            'hOthers': 'Others'
+          };
+          break;
+        case 'zh':
+          // Chinese translations
+          translations = {
+            'btnQuery': '查询按摩椅状态',
+            'btnOn': '打开按摩椅',
+            'btnOff': '结束按摩，关闭按摩椅',
+            'btnMode1': '自动模式',
+            'btnMode2': '舒缓按摩/舒缓模式',
+            'btnMode3': '强力按摩/强力模式',
+            'btnMode4': '拉伸模式',
+            'btnMode5': '睡眠模式',
+            'btnTime1': '按摩5分钟',
+            'btnTime2': '按摩10分钟',
+            'btnTime3': '按摩15分钟',
+            'btnTime4': '按摩20分钟',
+            'btnTime5': '按摩25分钟',
+            'btnTime6': '按摩30分钟',
+            'btnTime7': '定时',
+            'btnSpeed1': '速度调到1档',
+            'btnSpeed2': '速度调到2档',
+            'btnSpeed3': '速度调到3档',
+            'btnSpeed4': '速度调到4档',
+            'btnSpeed5': '速度调到5档',
+            'btnSpeed6': '速度调到6档',
+            'btnSpeed7': '力度',
+            'btnManual1': '手动按摩',
+            'btnManual2': '揉捏',
+            'btnManual3': '敲击',
+            'btnManual4': '拍打',
+            'btnManual5': '指压',
+            'btnManual6': '揉敲',
+            'btnManual7': '揉拍',
+            'btnMove1': '调宽',
+            'btnMove2': '调中',
+            'btnMove3': '调窄',
+            'btnMove4': '宽度调节',
+            'btnPos1': '全身按摩',
+            'btnPos2': '局部按摩',
+            'btnPos3': '定点按摩',
+            'btnAir1': '打开气囊',
+            'btnAir2': '关闭气囊',
+            'btnAir3': '打开头部气囊',
+            'btnAir4': '关闭头部气囊',
+            'btnAir5': '打开肩部气囊',
+            'btnAir6': '关闭肩部气囊',
+            'btnAir7': '打开手臂气囊',
+            'btnAir8': '关闭手臂气囊',
+            'btnAir9': '打开臀部气囊',
+            'btnAir10': '关闭臀部气囊',
+            'btnAir11': '打开腿部气囊',
+            'btnAir12': '关闭腿部气囊',
+            'btnAir13': '气压手动',
+            'btnPress1': '气压调到1档',
+            'btnPress2': '气压调到2档',
+            'btnPress3': '气压调到3档',
+            'btnPress4': '气压强度',
+            'btnOthers1': '零重力',
+            'btnOthers2': '关闭零重力',
+            'btnOthers3': '打开加热',
+            'btnOthers4': '关闭加热',
+            'btnOthers5': '打开滚轮',
+            'btnOthers6': '关闭滚轮',
+            'btnOthers7': '打开振动',
+            'btnOthers8': '关闭振动',
+            'btnOthers9': '靠背升',
+            'btnOthers10': '靠背降',
+            'btnOthers11': '行走上行',
+            'btnOthers12': '行走下行',
+            'btnOthers13': '小腿升',
+            'btnOthers14': '小腿降',
+            'btnOthers15': '脚底滚轮',
+            'btnOthers16': '加热',
+            'btnOthers17': '蓝牙',
+            'hQuery': '查询',
+            'hOnOff': '开关',
+            'hMode': '自动模式',
+            'hTime': '按摩时间',
+            'hSpeed': '按摩速度',
+            'hManual': '手动按摩',
+            'hMove': '机芯幅度',
+            'hPos': '按摩位置',
+            'hAir': '气囊位置',
+            'hPress': '气压',
+            'hOthers': '其他'
+          };
+          break;
+        // Add more cases for other languages if needed
+      }
+      
+      // Update the text content of elements based on their IDs
+      for (var id in translations) {
+        var element = document.getElementById(id);
+        if (element) {
+          element.textContent = translations[id];
+        } else {
+          console.warn("Element with ID " + id + " not found.");
+        }
+      }
+    }
+
+    // Initially set language to English
+    changeLanguage('en');
   </script>
 </body>
 </html>
