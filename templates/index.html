@@ -1,355 +1,1092 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Massage Chair Remote Control</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link href="https://fonts.cdnfonts.com/css/intro" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Intro+Inline&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+    <title>Massage Chair Web App</title>
 </head>
+
 <body>
-
-<div class="container mt-5">
-  <h1 class="text-center">Massage Chair Remote Control</h1>
-
-  <div class="text-end mb-3">
-    <button class="btn btn-primary" onclick="changeLanguage('en')">EN</button>
-    <button class="btn btn-primary" onclick="changeLanguage('zh')">中文</button>
-  </div>
-  
-  <div class="row mt-5">
-    <div class="col-md-6">
-      <h2 id="hQuery"></h2>
-      <button id="btnQuery" class="btn btn-primary mb-2" data-message="59 59 06 01 01 BA"></button>
+    <div class="container shadow" style="background: white; max-width: 400px; padding: 0; padding-bottom: 100px;">
+        <div class="Status container pt-4 pb-0"
+            style="background: white; max-width: 400px; padding-left: 16px; padding-right: 16px;">
+            <img class="PoweredByRiseLogoTransparentBg1 logo my-1"
+                style="max-width: 132px; max-height: 40px; width: 50%; align-items: center;"
+                src="{{ url_for('static', filename='icons/Logo.png') }}" />
+            <div class="status" style="position: relative;" id="status">
+                <img class="TakahiroTaguchiMcmrflkw8ygUnsplash1 center"
+                    style="width: 100%; max-height: 197px; border-radius: 12px; opacity: 0.6;"
+                    src="{{ url_for('static', filename='icons/takahiro-taguchi-McmRfLKw8yg-unsplash.jpg') }}" />
+                <div id="locationName" class="locationName"
+                    style="position: absolute; top: 5%; left: 5%; margin: 0; padding: 5px; color: black; font-size: 12px; font-family: Inter; font-weight: 600; word-wrap: break-word">
+                    locationName</div>
+                <div id="mcID" class="mcID"
+                    style="position: absolute; top: 5%; right: 5%; margin: 0; padding: 5px; color: black; font-size: 12px; font-family: Inter; font-weight: 600; word-wrap: break-word">
+                    SN: mcID</div>
+                <div class="00" id="count"
+                    style="position: absolute; top: 70%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #F14341; font-size: 48px; font-family: Intro Demo; font-weight: 600; word-wrap: break-word">
+                    00:00</div>
+                <div class="TotalTime00Min" id="total"
+                    style="position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: black; font-size: 12px; font-family: Inter; font-weight: 600; word-wrap: break-word">
+                    Total Time: 00 min</div>
+            </div>
+        </div>
+        <div class="Paycontainer"
+            style="background: white; max-width: 400px; margin-top: 22px; padding-left: 16px; padding-right: 16px;">
+            <div class="payment" style="position: relative;">
+                <div class="ChooseDuration"
+                    style="margin-bottom: 16px; opacity: 0.70; color: #101010; font-size: 16px; font-family: Inter; font-weight: 600; word-wrap: break-word">
+                    Choose Duration</div>
+                <div class="containerPayment text-center">
+                    <div class="row">
+                        <div class="col">
+                            <button class="pay-input RM300" id="2m"
+                                style="border-radius: 12px; border: 0px; width: 100%; height: 68px;">
+                                <div>
+                                    <div class="Min"
+                                        style="align-self: stretch; color: #101010; font-size: 16px; font-family: Inter; font-weight: 500; word-wrap: break-word">
+                                        5 min</div>
+                                    <div class="Rm300"
+                                        style="align-self: stretch; opacity: 0.60; color: black; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word">
+                                        RM3.00</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="pay-input RM500" id="10m"
+                                style="border-radius: 12px; border: 0px; width: 100%; height: 68px;">
+                                <div>
+                                    <div class="Min"
+                                        style="align-self: stretch; color: #101010; font-size: 16px; font-family: Inter; font-weight: 500; word-wrap: break-word">
+                                        10 min</div>
+                                    <div class="Rm500"
+                                        style="align-self: stretch; opacity: 0.60; color: black; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word">
+                                        RM5.00</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="pay-input RM750" id="15m"
+                                style="border-radius: 12px; border: 0px; width: 100%; height: 68px;">
+                                <div>
+                                    <div class="Min"
+                                        style="align-self: stretch; color: #101010; font-size: 16px; font-family: Inter; font-weight: 500; word-wrap: break-word">
+                                        15 min</div>
+                                    <div class="Rm750"
+                                        style="align-self: stretch; opacity: 0.60; color: black; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word">
+                                        RM7.50</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 16px; margin-bottom: 22px;">
+                        <div class="col">
+                            <button class="pay-input RM1000" id="20m"
+                                style="border-radius: 12px; border: 0px; width: 100%; height: 68px;">
+                                <div>
+                                    <div class="Min"
+                                        style="align-self: stretch; color: #101010; font-size: 16px; font-family: Inter; font-weight: 500; word-wrap: break-word">
+                                        20 min</div>
+                                    <div class="Rm1000"
+                                        style="align-self: stretch; opacity: 0.60; color: black; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word">
+                                        RM10.00</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="pay-input RM1250" id="25m"
+                                style="border-radius: 12px; border: 0px; width: 100%; height: 68px;">
+                                <div>
+                                    <div class="Min"
+                                        style="align-self: stretch; color: #101010; font-size: 16px; font-family: Inter; font-weight: 500; word-wrap: break-word">
+                                        25 min</div>
+                                    <div class="Rm1250"
+                                        style="align-self: stretch; opacity: 0.60; color: black; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word">
+                                        RM12.50</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="pay-input RM1500" id="30m"
+                                style="border-radius: 12px; border: 0px; width: 100%; height: 68px;">
+                                <div>
+                                    <div class="Min"
+                                        style="align-self: stretch; color: #101010; font-size: 16px; font-family: Inter; font-weight: 500; word-wrap: break-word">
+                                        30 min</div>
+                                    <div class="Rm1500"
+                                        style="align-self: stretch; opacity: 0.60; color: black; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word">
+                                        RM15.00</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="Button" id="pay"
+                    style="height: 48px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
+                    <button class="StyleLayer"
+                        style="border: 0; align-self: stretch; height: 48px; padding-left: 16px; padding-right: 16px; padding-top: 8px; padding-bottom: 8px; background: #34E0A1; border-radius: 12px; justify-content: center; align-items: center; gap: 4px; display: inline-flex">
+                        <div class="Button"
+                            style="color: #101010; font-size: 14px; font-family: Rubik; font-weight: 600; letter-spacing: 0.25px; word-wrap: break-word">
+                            Pay</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="controlContainer"
+            style="background: white; max-width: 400px; margin-top: 22px; padding-left: 16px; padding-right: 16px;">
+            <div class="scenes" style="position: relative;">
+                <div class="ChooseScenes"
+                    style="margin-bottom: 16px; align-self: stretch; color: #101010; font-size: 16px; font-family: Inter; font-weight: 550; word-wrap: break-word">
+                    Choose Scenes</div>
+                <div class="containerScenes controlGroup" style="padding-left: 16px; padding-right: 16px;">
+                    <button class="row py-2" data-message="59 59 06 03 01 BC"
+                        style="border: 0; text-align: left; background-color: #F7F7F7; border-radius: 12px; margin-bottom: 16px;">
+                        <div class="col-2 p-1">
+                            <div class="Frame1503 center"
+                                style="max-width: 40px; height: 40px; padding: 10%; background: white; border-radius: 20px; justify-content: center; align-items: center; gap: 10px; display: flex">
+                                <img class="Puzzle1" style="max-width: 90%; height: 90%"
+                                    src="{{ url_for('static', filename='icons/puzzle.png') }}" />
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <div class="ClassicMassage" style=" flex: 1 1 0">
+                                <div
+                                    style="color: #101010; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 25px; word-wrap: break-word">
+                                    Classic Massage<br /></div>
+                                <div
+                                    style="color: #636363; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 15px; word-wrap: break-word">
+                                    Powered by RISE authentic massage mode provide a leisure rest for your tiredness
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <button class="row py-2" data-message="59 59 06 03 02 BD"
+                        style="border: 0; text-align: left; background-color: #B1D5FF; border-radius: 12px; margin-bottom: 16px;">
+                        <div class="col-2 p-1">
+                            <div class="Frame1503 center"
+                                style="max-width: 40px; height: 40px; padding: 10%; background: white; border-radius: 20px; justify-content: center; align-items: center; gap: 10px; display: flex">
+                                <img class="Swedish" style="max-width: 90%; height: 90%"
+                                    src="{{ url_for('static', filename='icons/swedish.png') }}" />
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <div class="SwedishMassage" style=" flex: 1 1 0">
+                                <div
+                                    style="color: #101010; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 25px; word-wrap: break-word">
+                                    Swedish Massage<br /></div>
+                                <div
+                                    style="color: #636363; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 15px; word-wrap: break-word">
+                                    Known for soft,
+                                    long,
+                                    kneading strokes muscle combined with short,
+                                    rhythmic tapping
+                                    stroke
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <button class="row py-2" data-message="59 59 06 03 03 BE"
+                        style="border: 0; text-align: left; background-color: #FFA196; border-radius: 12px; margin-bottom: 16px;">
+                        <div class="col-2 p-1">
+                            <div class="Frame1503 center"
+                                style="max-width: 40px; height: 40px; padding: 10%; background: white; border-radius: 20px; justify-content: center; align-items: center; gap: 10px; display: flex">
+                                <img class="Injury" style="max-width: 90%; height: 90%"
+                                    src="{{ url_for('static', filename='icons/injury (1).png') }}" />
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <div class="TitTarMassage" style="flex: 1 1 0">
+                                <div
+                                    style="color: #101010; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 25px; word-wrap: break-word">
+                                    Tit-Tar Massage<br /></div>
+                                <div
+                                    style="color: #636363; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 15px; word-wrap: break-word">
+                                    Unlock deep healing and revitalization,
+                                    to alleviate pain and promote wellness
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <button class="row py-2" data-message="59 59 06 03 04 BF"
+                        style="border: 0; text-align: left; background-color: #FFE896; border-radius: 12px; margin-bottom: 16px;">
+                        <div class="col-2 p-1">
+                            <div class="Frame1503 center"
+                                style="max-width: 40px; height: 40px; padding: 10%; background: white; border-radius: 20px; justify-content: center; align-items: center; gap: 10px; display: flex">
+                                <img class="Thai" style="max-width: 90%; height: 90%"
+                                    src="{{ url_for('static', filename='icons/thai.png') }}" />
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <div class="ThaiMassage" style="flex: 1 1 0">
+                                <div
+                                    style="color: #101010; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 25px; word-wrap: break-word">
+                                    Thai Massage<br /></div>
+                                <div
+                                    style="color: #636363; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 15px; word-wrap: break-word">
+                                    Focused on a rhythmic compression of muscle and flexibility enhancement
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                    <button class="row py-2" data-message="59 59 06 03 05 C0"
+                        style="border: 0; text-align: left; background-color: #D5F5B3; border-radius: 12px; margin-bottom: 0;">
+                        <div class="col-2 p-1">
+                            <div class="Frame1503 center"
+                                style="max-width: 40px; height: 40px; padding: 10%; background: white; border-radius: 20px; justify-content: center; align-items: center; gap: 10px; display: flex">
+                                <img class="Sleeping" style="max-width: 90%; height: 90%"
+                                    src="{{ url_for('static', filename='icons/sleeping.png') }}" />
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <div class="SleepTherapy" style="flex: 1 1 0">
+                                <div
+                                    style="color: #101010; font-size: 16px; font-family: Inter; font-weight: 500; line-height: 25px; word-wrap: break-word">
+                                    Sleep Therapy<br /></div>
+                                <div
+                                    style="color: #636363; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 15px; word-wrap: break-word">
+                                    Our special formula massage for help you to sleep better at night
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <div class="speed" style="position: relative;">
+                <div class="H2Speed"
+                    style="margin-top: 16px; margin-bottom: 16px; color: #101010; font-size: 16px; font-family: Inter; font-weight: 600; word-wrap: break-word">
+                    Speed</div>
+                <div class="containerSpeed text-center controlGroup">
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col" style="padding-right: 0;">
+                            <button data-message="59 59 06 05 01 BE"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Level1"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Level 1</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-right: 16px; padding-left: 16px;">
+                            <button data-message="59 59 06 05 02 BF"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Level2"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Level 2</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 0;">
+                            <button data-message="59 59 06 05 03 C0"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Level3"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Level 3</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col" style="padding-right: 0;">
+                            <button data-message="59 59 06 05 04 C1"
+                            style="border-radius: 8px; border: 0px; width: 100%; height: 33px; padding: 0;">
+                                <div>
+                                    <div class="Level4"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Level 4</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-right: 16px; padding-left: 16px;">
+                            <button data-message="59 59 06 05 05 C3"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Level5"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Level 5</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 0;">
+                            <button data-message="59 59 06 05 06 C3"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Level6"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Level 6</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4" style="padding-right: 8px;">
+                            <button data-message="59 59 06 05 07 C4"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Intensity"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Intensity</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="manual" style="position: relative;">
+                <div class="H2Manual"
+                    style="margin-top: 16px; margin-bottom: 16px; color: #101010; font-size: 16px; font-family: Inter; font-weight: 600; word-wrap: break-word">
+                    Manual Massage</div>
+                <div class="containerManual text-center controlGroup">
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col" style="padding-right: 0;">
+                            <button data-message="59 59 06 06 01 BF"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Manual"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Manual</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 16px; padding-right: 16px;">
+                            <button data-message="59 59 06 06 02 C0"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Kneading"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Kneading</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 0;">
+                            <button data-message="59 59 06 06 03 C1"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Tapping"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Tapping</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col" style="padding-right: 0;">
+                            <button data-message="59 59 06 06 04 C2"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Patting"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Patting</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 16px; padding-right: 16px;">
+                            <button data-message="59 59 06 06 05 C3"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Acupressure"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Acupressure</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 0;">
+                            <button data-message="59 59 06 06 06 C4"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="KneadTap"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Knead & Tap</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col-4" style="padding-right: 8px;">
+                            <button data-message="59 59 06 06 07 C5"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="KneadPat"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Knead & Pat</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Intensity" style="position: relative;">
+                <div class="H2Intensity"
+                    style="margin-top: 16px; margin-bottom: 16px; color: #101010; font-size: 16px; font-family: Inter; font-weight: 600; word-wrap: break-word">
+                    Roller Intensity</div>
+                <div class="containerIntensity text-center controlGroup">
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col" style="padding-right: 0px;">
+                            <button data-message="59 59 06 07 01 C0"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Adjustwidth"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Adjust width</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-right: 16px; padding-left: 16px;">
+                            <button data-message="59 59 06 07 02 C1"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Adjustmid"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Adjust mid</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 0px;">
+                            <button data-message="59 59 06 07 03 C2"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Adjustnarrow"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Adjust narrow</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4" style="padding-right: 8px;">
+                            <button data-message="59 59 06 07 04 C3"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Widthadjust"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Width adjust</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="MassagePosition" style="position: relative;">
+                <div class="H2Pos"
+                    style="margin-top: 16px; margin-bottom: 16px; color: #101010; font-size: 16px; font-family: Inter; font-weight: 600; word-wrap: break-word">
+                    Massage Position</div>
+                <div class="containerPos text-center controlGroup">
+                    <div class="row">
+                        <div class="col" style="padding-right: 0px;">
+                            <button data-message="59 59 06 08 01 C1"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Fullbody"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Full body</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 16px; padding-right: 16px;">
+                            <button data-message="59 59 06 08 02 C2"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Partialmassage"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Partial massage</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 0px;">
+                            <button data-message="59 59 06 08 03 C3"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Spotmassage"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Spot massage</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="AirbagPosition" style="position: relative;">
+                <div class="H2AirPos"
+                    style="margin-top: 16px; margin-bottom: 16px; color: #101010; font-size: 16px; font-family: Inter; font-weight: 600; word-wrap: break-word">
+                    Airbag Position</div>
+                <div class="containerAirPos text-center controlGroup">
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col" style="padding-right: 0;">
+                            <button data-message="59 59 06 09 01 C2"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Onairbags"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        On airbags</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 16px; padding-right: 16px;">
+                            <button data-message="59 59 06 09 02 C3"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Offairbags"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Off airbags</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 0;">
+                            <button data-message="59 59 06 09 03 C4"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Onhead"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        On head</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col" style="padding-right: 0;">
+                            <button data-message="59 59 06 09 04 C5"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Offhead"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Off head</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 16px; padding-right: 16px;">
+                            <button data-message="59 59 06 09 05 C6"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Onshoulder"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        On shoulder</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 0;">
+                            <button data-message="59 59 06 09 06 C7"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Offshoulder"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Off shoulder</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col" style="padding-right: 0;">
+                            <button data-message="59 59 06 09 07 C8"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Onarm"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        On arm</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 16px; padding-right: 16px;">
+                            <button data-message="59 59 06 09 08 C9"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Offarm"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Off arm</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 0;">
+                            <button data-message="59 59 06 09 09 CA"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Onhip"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        On hip</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col" style="padding-right: 0;">
+                            <button data-message="59 59 06 09 0A CB"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Offhip"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Off hip</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 16px; padding-right: 16px;">
+                            <button data-message="59 59 06 09 0B CC"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Onleg"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        On leg</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 0;">
+                            <button data-message="59 59 06 09 0C CD"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Offleg"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Off leg</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button data-message="59 59 06 09 0D CE"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Manualairpressure"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Manual air pressure</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="AirPressure" style="position: relative;">
+                <div class="H2Press"
+                    style="margin-top: 16px; margin-bottom: 16px; color: #101010; font-size: 16px; font-family: Inter; font-weight: 600; word-wrap: break-word">
+                    Air Pressure</div>
+                <div class="containerPress text-center controlGroup">
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col" style="padding-right: 0;">
+                            <button data-message="59 59 06 0A 01 C3"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Level1"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Level 1</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 16px; padding-right: 16px;">
+                            <button data-message="59 59 06 0A 02 C4"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Level2"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Level 2</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 0;">
+                            <button data-message="59 59 06 0A 03 C5"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Level 3"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Level 3</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4" style="padding-right: 8px;">
+                            <button data-message="59 59 06 0A 04 C6"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Intensity"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Intensity</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Others" style="position: relative;">
+                <div class="H2Others"
+                    style="margin-top: 16px; margin-bottom: 16px; color: #101010; font-size: 16px; font-family: Inter; font-weight: 600; word-wrap: break-word">
+                    Others</div>
+                <div class="containerOthers text-center controlGroup">
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col" style="padding-right: 0px;">
+                            <button data-message="59 59 06 0B 01 C4"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Zerogravity"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Zero gravity</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 16px; padding-right: 16px;">
+                            <button data-message="59 59 06 0B 02 C5"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Offzerogravity"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Off zero gravity</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 0px;">
+                            <button data-message="59 59 06 0B 04 C7"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Onheating"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        On heating</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col" style="padding-right: 0px;">
+                            <button data-message="59 59 06 0B 05 C8"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Offheating"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Off heating</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 16px; padding-right: 16px;">
+                            <button data-message="59 59 06 0B 06 C9"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Onroller"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        On roller</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 0px;">
+                            <button data-message="59 59 06 0B 07 CA"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Offroller"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Off roller</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col" style="padding-right: 0px;">
+                            <button data-message="59 59 06 0B 08 CB"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Onvibration"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        On vibration</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 16px; padding-right: 16px;">
+                            <button data-message="59 59 06 0B 09 CC"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Offvibration"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Off vibration</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 0px;">
+                            <button data-message="59 59 06 0C 09 CD"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Raisebackrest"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Raise backrest</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col" style="padding-right: 0px;">
+                            <button data-message="59 59 06 0C 0A CE"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Lowerbackrest"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Lower backrest</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 16px; padding-right: 16px;">
+                            <button data-message="59 59 06 0C 1C E0"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Walkup"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Walk up</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 0px;">
+                            <button data-message="59 59 06 0C 1D E1"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Walkdown"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Walk down</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 16px;">
+                        <div class="col" style="padding-right: 0px;">
+                            <button data-message="59 59 06 0C 1E E2"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Raisecalves"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Raise calves</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 16px; padding-right: 16px;">
+                            <button data-message="59 59 06 0C 1F E3"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Lowercalves"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Lower calves</div>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col" style="padding-left: 0px;">
+                            <button data-message="59 59 06 0D 01 C6"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Footroller"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Foot roller</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4" style="padding-right: 8px;">
+                            <button data-message="59 59 06 0D 02 C7"
+                                style="border-radius: 8px; border: 0px; width: 100%; height: 100%; min-height: 33px;">
+                                <div>
+                                    <div class="Heating"
+                                        style="color: #636363; font-size: 14px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                        Heating</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Button" data-bs-toggle="modal" data-bs-target="#stopModal"
+                style="margin-top: 22px; height: 48px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
+                <div class="StyleLayer"
+                    style="align-self: stretch; height: 48px; padding-left: 16px; padding-right: 16px; padding-top: 8px; padding-bottom: 8px; background: #FF5755; border-radius: 12px; justify-content: center; align-items: center; gap: 4px; display: inline-flex">
+                    <div class="Button"
+                        style="color: #101010; font-size: 14px; font-family: Rubik; font-weight: 600; letter-spacing: 0.25px; word-wrap: break-word">
+                        Stop</div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-6">
-      <h2 id="hOnOff"></h2>
-      <button id="btnOn" class="btn btn-success mb-2" data-message="59 59 06 02 01 BB"></button>
-      <button id="btnOff" class="btn btn-danger mb-2" data-message="59 59 06 02 02 BC"></button>
+    <!-- Modal -->
+    <div class="modal fade" id="stopModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-sm" style="max-width: 330px;">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="PopUp"
+                    style="text-align: center; max-width: 330px; height: 330px; max-width: 100%; position: relative;">
+                    <div class="container p-0" style="width: 100%; margin: 0; text-align: center; position: relative;">
+                        <div class="closeButton" style="text-align: right;">
+                            <button type="button" class="btn p-0 text-danger" data-bs-dismiss="modal"
+                                style="margin-top: 19px; margin-right: 19px;">
+                                <img src="{{ url_for('static', filename='icons/close.png') }}" alt=""
+                                    style="width: 17px; height: 17px;">
+                            </button>
+                        </div>
+                        <div class="Message" style="margin-bottom: 10px; margin-left: 30px; margin-right: 30px;">
+                            <span
+                                style="color: #101010; font-size: 16px; font-family: Inter; font-weight: 500; word-wrap: break-word">Are
+                                you sure you want to stop massage? <br /><br /></span>
+                            <span
+                                style="color: #101010; font-size: 12px; font-family: Inter; font-weight: 500; line-height: 15px; word-wrap: break-word">Please
+                                note that there will be </span>
+                            <span
+                                style="color: #FD0505; font-size: 12px; font-family: Inter; font-weight: 700; line-height: 15px; word-wrap: break-word">No
+                                Refund</span>
+                            <span
+                                style="color: #101010; font-size: 12px; font-family: Inter; font-weight: 500; line-height: 15px; word-wrap: break-word">
+                                for the remaining time.<br /></span>
+                        </div>
+                    </div>
+                    <div class="Button"
+                        style="margin-top: 15px; width: 247px; height: 48px; position: relative; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 10px; display: inline-flex">
+                        <button class="StyleLayer" id="stopSession"
+                            style="border: 0; align-self: stretch; height: 48px; padding-left: 16px; padding-right: 16px; padding-top: 8px; padding-bottom: 8px; background: #FF5755; border-radius: 12px; justify-content: center; align-items: center; gap: 4px; display: inline-flex">
+                            <div class="Button"
+                                style="color: #101010; font-size: 14px; font-family: Rubik; font-weight: 500; letter-spacing: 0.25px; word-wrap: break-word">
+                                Yes,
+                                stop now!</div>
+                        </button>
+                    </div>
+                    <div class="Button"
+                        style="margin-top: 16px;width: 247px; height: 48px; position: relative; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 10px; display: inline-flex">
+                        <button class="StyleLayer"
+                            style="border: 0; align-self: stretch; height: 48px; padding-left: 16px; padding-right: 16px; padding-top: 8px; padding-bottom: 8px; background: #34E0A1; border-radius: 12px; justify-content: center; align-items: center; gap: 4px; display: inline-flex">
+                            <div class="Button" data-bs-dismiss="modal"
+                                style="color: #101010; font-size: 14px; font-family: Rubik; font-weight: 500; letter-spacing: 0.25px; word-wrap: break-word">
+                                No,
+                                I want to continue session</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <div class="row mt-4">
-    <div class="col-md-6">
-      <h2 id="hMode"></h2>
-      <button id="btnMode1" class="btn btn-primary mb-2" data-message="59 59 06 03 01 BC"></button>
-      <button id="btnMode2" class="btn btn-primary mb-2" data-message="59 59 06 03 02 BD"></button>
-      <button id="btnMode3" class="btn btn-primary mb-2" data-message="59 59 06 03 03 BE"></button>
-      <button id="btnMode4" class="btn btn-primary mb-2" data-message="59 59 06 03 04 BF"></button>
-      <button id="btnMode5" class="btn btn-primary mb-2" data-message="59 59 06 03 05 C0"></button>
+    <!-- Modal -->
+    <div class="modal fade pt-3" id="invModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-sm" style="max-width: 315px;">
+            <div class="modal-content">
+                <div class="Group8 px-4"
+                    style="text-align: center; position: relative; max-width: 315px; height: 780px; max-width: 100%; position: relative;">
+                    <div class="half-icon" style="width: 90px; height: 90px;">
+                        <img src="{{ url_for('static', filename='icons/button.png') }}" alt="" style="height: 300%;">
+                    </div>
+                    <div class="ReceiptDetails">
+                        <div class="Details" id="print"
+                            style="width: 100%; margin: auto; margin-top: 20%; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 20px; display: inline-flex; position: relative;">
+                            <div class="Title"
+                                style="width: 100%; text-align: center; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word">
+                                Emergence Innovative Sdn. Bhd.<br />201901040535 (1349865-H)
+                                <br />21,
+                                Jalan SP 3/4,
+                                Taman Saujana Puchong,
+                                47100 Puchong,
+                                Selangor
+                            </div>
+                            <div class="Details" style="width: 100%; position: relative; text-align: center;">
+                                <div class="Title"
+                                    style="position: relative; color: #1D1B23; margin-bottom: 20px; font-size: 14px; font-family: Inter; font-weight: 500; word-wrap: break-word">
+                                    - INVOICE -
+                                </div>
+                                <div class="SeparatorLine" style="border: 1.20px #1D1B23 dotted;"></div>
+                            </div>
+                            <div class="Details" style="position: relative; width: 100%;">
+                                <div
+                                    style="float: left; color: #757575; font-size: 12px; font-family: Inter; font-weight: 500; letter-spacing: 0.36px; word-wrap: break-word">
+                                    Date</div>
+                                <div id="invDate"
+                                    style="float: right; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word;">
+                                    25/04/2024 19:45</div>
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div class="Details" style="width: 100%; position: relative">
+                                <div
+                                    style="float: left; color: #757575; font-size: 12px; font-family: Inter; font-weight: 500; letter-spacing: 0.36px; word-wrap: break-word">
+                                    Details</div>
+                                <div id="invMCID"
+                                    style="float: right; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word;">
+                                    Massage Chair KL00101</div>
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div class="Details" style="width: 100%; position: relative">
+                                <div
+                                    style="float: left; color: #757575; font-size: 12px; font-family: Inter; font-weight: 500; letter-spacing: 0.36px; word-wrap: break-word">
+                                    Invoice No.</div>
+                                <div id="invNo"
+                                    style="float: right; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word;">
+                                    MC20240000001</div>
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div class="Details" style="width: 100%; position: relative">
+                                <div
+                                    style="float: left; color: #757575; font-size: 12px; font-family: Inter; font-weight: 500; letter-spacing: 0.36px; word-wrap: break-word">
+                                    Location</div>
+                                <div id="invLoc"
+                                    style="float: right; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word;">
+                                    Illuminine,
+                                    Kuala Lumpur</div>
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div class="SeparatorLine" style="width: 100%; border: 1.20px #1D1B23 dotted">
+                            </div>
+                            <div class="Details" style="width: 100%; position: relative">
+                                <div
+                                    style="float: left; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                    Total Payment</div>
+                                <div id="invPay"
+                                    style="float: right; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word;">
+                                    RM15.00</div>
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div class="Details" style="width: 100%; position: relative">
+                                <div
+                                    style="float: left; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 600; letter-spacing: 0.36px; word-wrap: break-word">
+                                    Total</div>
+                                <div id="invTotal"
+                                    style="float: right; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 600; word-wrap: break-word">
+                                    RM15.00</div>
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div class="SeparatorLine" style="width: 100%; border: 1.20px #1D1B23 dotted">
+                            </div>
+                            <div class="Title"
+                                style="width: 100%; text-align: center; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                Thank you for using RISE Service!</div>
+                            <div class="Title"
+                                style="width: 100%; text-align: center; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 400; word-wrap: break-word">
+                                Official website<br />https://poweredbyrise.com.my/</div>
+                        </div>
+                        <img class="PoweredByRiseLogoTransparentBg1"
+                            style="width: 40%; text-align: center; margin-top: 15px;"
+                            src="{{ url_for('static', filename='icons/Logo.png') }}" />
+                    </div>
+                    <div class="Button" id="invPDF"
+                        style="width: 247px; height: 48px; text-align: center; margin-top: 15px; position: relative; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 10px; display: inline-flex">
+                        <button class="StyleLayer"
+                            style="border: 0; align-self: stretch; height: 48px; padding-left: 16px; padding-right: 16px; padding-top: 8px; padding-bottom: 8px; background: #AFAFAF; border-radius: 12px; justify-content: center; align-items: center; gap: 4px; display: inline-flex">
+                            <div class="Button"
+                                style="color: #101010; font-size: 14px; font-family: Rubik; font-weight: 500; letter-spacing: 0.25px; word-wrap: break-word">
+                                Download PDF Receipt</div>
+                        </button>
+                    </div>
+                    <div class="Button"
+                        style="width: 247px; height: 48px; text-align: center; margin-top: 15px; position: relative; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 10px; display: inline-flex">
+                        <button class="StyleLayer" id='endSession'
+                            style="border: 0; align-self: stretch; height: 48px; padding-left: 16px; padding-right: 16px; padding-top: 8px; padding-bottom: 8px; background: #34E0A1; border-radius: 12px; justify-content: center; align-items: center; gap: 4px; display: inline-flex">
+                            <div class="Button"
+                                style="color: #101010; font-size: 14px; font-family: Rubik; font-weight: 500; letter-spacing: 0.25px; word-wrap: break-word">
+                                Complete</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-6">
-      <h2 id="hTime"></h2>
-      <button id="btnTime1" class="btn btn-primary mb-2" data-message="59 59 06 04 05 C1"></button>
-      <button id="btnTime2" class="btn btn-primary mb-2" data-message="59 59 06 04 0A C6"></button>
-      <button id="btnTime3" class="btn btn-primary mb-2" data-message="59 59 06 04 0F CB"></button>
-      <button id="btnTime4" class="btn btn-primary mb-2" data-message="59 59 06 04 14 D0"></button>
-      <button id="btnTime5" class="btn btn-primary mb-2" data-message="59 59 06 04 19 D5"></button>
-      <button id="btnTime6" class="btn btn-primary mb-2" data-message="59 59 06 04 1E DA"></button>
-      <button id="btnTime7" class="btn btn-primary mb-2" data-message="59 59 06 04 01 BD"></button>
-    </div>
-    <div class="col-md-6">
-        <h2 id="hSpeed"></h2>
-        <button id="btnSpeed1" class="btn btn-primary mb-2" data-message="59 59 06 05 01 BE"></button>
-        <button id="btnSpeed2" class="btn btn-primary mb-2" data-message="59 59 06 05 02 BF"></button>
-        <button id="btnSpeed3" class="btn btn-primary mb-2" data-message="59 59 06 05 03 C0"></button>
-        <button id="btnSpeed4" class="btn btn-primary mb-2" data-message="59 59 06 05 04 C1"></button>
-        <button id="btnSpeed5" class="btn btn-primary mb-2" data-message="59 59 06 05 05 C3"></button>
-        <button id="btnSpeed6" class="btn btn-primary mb-2" data-message="59 59 06 05 06 C3"></button>
-        <button id="btnSpeed7" class="btn btn-primary mb-2" data-message="59 59 06 05 06 C3"></button>
-      </div>
-      <div class="col-md-6">
-        <h2 id="hManual"></h2>
-        <button id="btnManual1" class="btn btn-primary mb-2" data-message="59 59 06 06 01 BF"></button>
-        <button id="btnManual2" class="btn btn-primary mb-2" data-message="59 59 06 06 02 C0"></button>
-        <button id="btnManual3" class="btn btn-primary mb-2" data-message="59 59 06 06 03 C1"></button>
-        <button id="btnManual4" class="btn btn-primary mb-2" data-message="59 59 06 06 04 C2"></button>
-        <button id="btnManual5" class="btn btn-primary mb-2" data-message="59 59 06 06 05 C3"></button>
-        <button id="btnManual6" class="btn btn-primary mb-2" data-message="59 59 06 06 06 C4"></button>
-        <button id="btnManual7" class="btn btn-primary mb-2" data-message="59 59 06 06 07 C5"></button>
-      </div>
-      <div class="col-md-6">
-        <h2 id="hMove"></h2>
-        <button id="btnMove1" class="btn btn-primary mb-2" data-message="59 59 06 07 01 C0"></button>
-        <button id="btnMove2" class="btn btn-primary mb-2" data-message="59 59 06 07 02 C1"></button>
-        <button id="btnMove3" class="btn btn-primary mb-2" data-message="59 59 06 07 03 C2"></button>
-        <button id="btnMove4" class="btn btn-primary mb-2" data-message="59 59 06 07 04 C3"></button>
-      </div>
-      <div class="col-md-6">
-        <h2  id="hPos"></h2>
-        <button id="btnPos1" class="btn btn-primary mb-2" data-message="59 59 06 08 01 C1"></button>
-        <button id="btnPos2" class="btn btn-primary mb-2" data-message="59 59 06 08 02 C2"></button>
-        <button id="btnPos3" class="btn btn-primary mb-2" data-message="59 59 06 08 03 C3"></button>
-      </div>
-      <div class="col-md-6">
-        <h2 id="hAir"></h2>
-        <button id="btnAir1" class="btn btn-primary mb-2" data-message="59 59 06 09 01 C2"></button>
-        <button id="btnAir2" class="btn btn-primary mb-2" data-message="59 59 06 09 02 C3"></button>
-        <button id="btnAir3" class="btn btn-primary mb-2" data-message="59 59 06 09 03 C4"></button>
-        <button id="btnAir4" class="btn btn-primary mb-2" data-message="59 59 06 09 04 C5"></button>
-        <button id="btnAir5" class="btn btn-primary mb-2" data-message="59 59 06 09 05 C6"></button>
-        <button id="btnAir6" class="btn btn-primary mb-2" data-message="59 59 06 09 06 C7"></button>
-        <button id="btnAir7" class="btn btn-primary mb-2" data-message="59 59 06 09 07 C8"></button>
-        <button id="btnAir8" class="btn btn-primary mb-2" data-message="59 59 06 09 08 C9"></button>
-        <button id="btnAir9" class="btn btn-primary mb-2" data-message="59 59 06 09 09 CA"></button>
-        <button id="btnAir10" class="btn btn-primary mb-2" data-message="59 59 06 09 0A CB"></button>
-        <button id="btnAir11" class="btn btn-primary mb-2" data-message="59 59 06 09 0B CC"></button>
-        <button id="btnAir12" class="btn btn-primary mb-2" data-message="59 59 06 09 0C CD"></button>
-        <button id="btnAir13" class="btn btn-primary mb-2" data-message="59 59 06 09 0D CE"></button>
-      </div>
-      <div class="col-md-6">
-        <h2  id="hPress"></h2>
-        <button id="btnPress1" class="btn btn-primary mb-2" data-message="59 59 06 0A 01 C3"></button>
-        <button id="btnPress2" class="btn btn-primary mb-2" data-message="59 59 06 0A 02 C4"></button>
-        <button id="btnPress3" class="btn btn-primary mb-2" data-message="59 59 06 0A 03 C5"></button>
-        <button id="btnPress4" class="btn btn-primary mb-2" data-message="59 59 06 0A 03 C5"></button>
-      </div>
-      <div class="col-md-6">
-        <h2 id="hOthers"></h2>
-        <button id="btnOthers1" class="btn btn-primary mb-2" data-message="59 59 06 0B 01 C4"></button>
-        <button id="btnOthers2" class="btn btn-primary mb-2" data-message="59 59 06 0B 02 C5"></button>
-        <button id="btnOthers3" class="btn btn-primary mb-2" data-message="59 59 06 0B 04 C7"></button>
-        <button id="btnOthers4" class="btn btn-primary mb-2" data-message="59 59 06 0B 05 C8"></button>
-        <button id="btnOthers5" class="btn btn-primary mb-2" data-message="59 59 06 0B 06 C9"></button>
-        <button id="btnOthers6" class="btn btn-primary mb-2" data-message="59 59 06 0B 07 CA"></button>
-        <button id="btnOthers7" class="btn btn-primary mb-2" data-message="59 59 06 0B 08 CB"></button>
-        <button id="btnOthers8" class="btn btn-primary mb-2" data-message="59 59 06 0B 09 CC"></button>
-        <button id="btnOthers9" class="btn btn-primary mb-2" data-message="59 59 06 0C 09 CD"></button>
-        <button id="btnOthers10" class="btn btn-primary mb-2" data-message="59 59 06 0C 0A CE"></button>
-        <button id="btnOthers11" class="btn btn-primary mb-2" data-message="59 59 06 0C 1C E0"></button>
-        <button id="btnOthers12" class="btn btn-primary mb-2" data-message="59 59 06 0C 1D E1"></button>
-        <button id="btnOthers13" class="btn btn-primary mb-2" data-message="59 59 06 0C 1E E2"></button>
-        <button id="btnOthers14" class="btn btn-primary mb-2" data-message="59 59 06 0C 1F E3"></button>
-        <button id="btnOthers15" class="btn btn-primary mb-2" data-message="59 59 06 0C 1D E1"></button>
-        <button id="btnOthers16" class="btn btn-primary mb-2" data-message="59 59 06 0C 1E E2"></button>
-        <button id="btnOthers17" class="btn btn-primary mb-2" data-message="59 59 06 0C 1F E3"></button>
-      </div>
-  </div>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const buttons = document.querySelectorAll('button');
-      const webSocket = new WebSocket('wss://xcl7vxzurl.execute-api.ap-southeast-2.amazonaws.com/demo');
-  
-      buttons.forEach(button => {
-        button.addEventListener('click', function () {
-          const message = this.getAttribute('data-message');
-          console.log(message)
-          var payload = JSON.stringify({ "action": "sendMessage", "message": message });
-          console.log(payload)
-          webSocket.send(payload);
-        });
-      });
-  
-      // Handle WebSocket events if needed
-      webSocket.onopen = function () {
-        console.log('WebSocket connected.');
-      };
-  
-      webSocket.onclose = function () {
-        console.log('WebSocket connection closed.');
-      };
-  
-      webSocket.onerror = function (error) {
-        console.error('WebSocket error:', error);
-      };
-    });
-
-    // Function to change language
-    function changeLanguage(lang) {
-      // Define translations based on the selected language
-      var translations = {};
-      switch (lang) {
-        case 'en':
-          // English translations
-          translations = {
-            'btnQuery': 'Check massage chair status',
-            'btnOn': 'Start',
-            'btnOff': 'Stop',
-            'btnMode1': 'Automatic mode',
-            'btnMode2': 'Gentle massage mode',
-            'btnMode3': 'Intense massage mode',
-            'btnMode4': 'Stretching mode',
-            'btnMode5': 'Sleep mode',
-            'btnTime1': '5 minutes',
-            'btnTime2': '10 minutes',
-            'btnTime3': '15 minutes',
-            'btnTime4': '20 minutes',
-            'btnTime5': '25 minutes',
-            'btnTime6': '30 minutes',
-            'btnTime7': 'Timer',
-            'btnSpeed1': 'Speed level 1',
-            'btnSpeed2': 'Speed level 2',
-            'btnSpeed3': 'Speed level 3',
-            'btnSpeed4': 'Speed level 4',
-            'btnSpeed5': 'Speed level 5',
-            'btnSpeed6': 'Speed level 6',
-            'btnSpeed7': 'Intensity',
-            'btnManual1': 'Manual massage',
-            'btnManual2': 'Kneading',
-            'btnManual3': 'Tapping',
-            'btnManual4': 'Patting',
-            'btnManual5': 'Acupressure',
-            'btnManual6': 'Kneading and tapping',
-            'btnManual7': 'Kneading and patting',
-            'btnMove1': 'Adjust width',
-            'btnMove2': 'Adjust mid',
-            'btnMove3': 'Adjust narrow',
-            'btnMove4': 'Width adjustment',
-            'btnPos1': 'Full body massage',
-            'btnPos2': 'Partial massage',
-            'btnPos3': 'Spot massage',
-            'btnAir1': 'Turn on airbags',
-            'btnAir2': 'Turn off airbags',
-            'btnAir3': 'Turn on head airbags',
-            'btnAir4': 'Turn off head airbags',
-            'btnAir5': 'Turn on shoulder airbags',
-            'btnAir6': 'Turn off shoulder airbags',
-            'btnAir7': 'Turn on arm airbags',
-            'btnAir8': 'Turn off arm airbags',
-            'btnAir9': 'Turn on hip airbags',
-            'btnAir10': 'Turn off hip airbags',
-            'btnAir11': 'Turn on leg airbags',
-            'btnAir12': 'Turn off leg airbags',
-            'btnAir13': 'Manual air pressure',
-            'btnPress1': 'Air pressure level 1',
-            'btnPress2': 'Air pressure level 2',
-            'btnPress3': 'Air pressure level 3',
-            'btnPress4': 'Air pressure intensity',
-            'btnOthers1': 'Zero gravity',
-            'btnOthers2': 'Turn off zero gravity',
-            'btnOthers3': 'Turn on heating',
-            'btnOthers4': 'Turn off heating',
-            'btnOthers5': 'Turn on rollers',
-            'btnOthers6': 'Turn off rollers',
-            'btnOthers7': 'Turn on vibration',
-            'btnOthers8': 'Turn off vibration',
-            'btnOthers9': 'Raise backrest',
-            'btnOthers10': 'Lower backrest',
-            'btnOthers11': 'Walk up',
-            'btnOthers12': 'Walk down',
-            'btnOthers13': 'Raise calves',
-            'btnOthers14': 'Lower calves',
-            'btnOthers15': 'Foot roller',
-            'btnOthers16': 'Heating',
-            'btnOthers17': 'Bluetooth',
-            'hQuery': 'Query',
-            'hOnOff': 'Power On/Off',
-            'hMode': 'Automatic Mode',
-            'hTime': 'Massage Time',
-            'hSpeed': 'Massage Speed',
-            'hManual': 'Manual Massage',
-            'hMove': 'Roller Intensity',
-            'hPos': 'Massage Position',
-            'hAir': 'Airbag Position',
-            'hPress': 'Air Pressure',
-            'hOthers': 'Others'
-          };
-          break;
-        case 'zh':
-          // Chinese translations
-          translations = {
-            'btnQuery': '查询按摩椅状态',
-            'btnOn': '开始',
-            'btnOff': '结束',
-            'btnMode1': '自动模式',
-            'btnMode2': '舒缓按摩/舒缓模式',
-            'btnMode3': '强力按摩/强力模式',
-            'btnMode4': '拉伸模式',
-            'btnMode5': '睡眠模式',
-            'btnTime1': '5分钟',
-            'btnTime2': '10分钟',
-            'btnTime3': '15分钟',
-            'btnTime4': '20分钟',
-            'btnTime5': '25分钟',
-            'btnTime6': '30分钟',
-            'btnTime7': '定时',
-            'btnSpeed1': '速度1档',
-            'btnSpeed2': '速度2档',
-            'btnSpeed3': '速度3档',
-            'btnSpeed4': '速度4档',
-            'btnSpeed5': '速度5档',
-            'btnSpeed6': '速度6档',
-            'btnSpeed7': '力度',
-            'btnManual1': '手动按摩',
-            'btnManual2': '揉捏',
-            'btnManual3': '敲击',
-            'btnManual4': '拍打',
-            'btnManual5': '指压',
-            'btnManual6': '揉敲',
-            'btnManual7': '揉拍',
-            'btnMove1': '调宽',
-            'btnMove2': '调中',
-            'btnMove3': '调窄',
-            'btnMove4': '宽度调节',
-            'btnPos1': '全身按摩',
-            'btnPos2': '局部按摩',
-            'btnPos3': '定点按摩',
-            'btnAir1': '打开气囊',
-            'btnAir2': '关闭气囊',
-            'btnAir3': '打开头部气囊',
-            'btnAir4': '关闭头部气囊',
-            'btnAir5': '打开肩部气囊',
-            'btnAir6': '关闭肩部气囊',
-            'btnAir7': '打开手臂气囊',
-            'btnAir8': '关闭手臂气囊',
-            'btnAir9': '打开臀部气囊',
-            'btnAir10': '关闭臀部气囊',
-            'btnAir11': '打开腿部气囊',
-            'btnAir12': '关闭腿部气囊',
-            'btnAir13': '气压手动',
-            'btnPress1': '气压1档',
-            'btnPress2': '气压2档',
-            'btnPress3': '气压3档',
-            'btnPress4': '气压强度',
-            'btnOthers1': '零重力',
-            'btnOthers2': '关闭零重力',
-            'btnOthers3': '打开加热',
-            'btnOthers4': '关闭加热',
-            'btnOthers5': '打开滚轮',
-            'btnOthers6': '关闭滚轮',
-            'btnOthers7': '打开振动',
-            'btnOthers8': '关闭振动',
-            'btnOthers9': '靠背升',
-            'btnOthers10': '靠背降',
-            'btnOthers11': '行走上行',
-            'btnOthers12': '行走下行',
-            'btnOthers13': '小腿升',
-            'btnOthers14': '小腿降',
-            'btnOthers15': '脚底滚轮',
-            'btnOthers16': '加热',
-            'btnOthers17': '蓝牙',
-            'hQuery': '查询',
-            'hOnOff': '开关',
-            'hMode': '自动模式',
-            'hTime': '按摩时间',
-            'hSpeed': '按摩速度',
-            'hManual': '手动按摩',
-            'hMove': '机芯幅度',
-            'hPos': '按摩位置',
-            'hAir': '气囊位置',
-            'hPress': '气压',
-            'hOthers': '其他'
-          };
-          break;
-        // Add more cases for other languages if needed
-      }
-      
-      // Update the text content of elements based on their IDs
-      for (var id in translations) {
-        var element = document.getElementById(id);
-        if (element) {
-          element.textContent = translations[id];
-        } else {
-          console.warn("Element with ID " + id + " not found.");
-        }
-      }
-    }
-
-    // Initially set language to English
-    changeLanguage('en');
-  </script>
 </body>
+
 </html>
