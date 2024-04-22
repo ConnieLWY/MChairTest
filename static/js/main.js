@@ -318,7 +318,7 @@ $(document).ready(function () {
             function updateCountdown() {
                 // Calculate the difference between the stop time and current time
                 var stopTime = new Date(StopTime).getTime();
-                var currentTime = new Date().getTime();
+                var currentTime = new Date(new Date().getTime() + 8 * 60 * 60 * 1000);
                 var timeDifference = stopTime - currentTime;
     
                 // If the stop time is in the past, set timeDifference to 0
