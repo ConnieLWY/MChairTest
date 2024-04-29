@@ -207,9 +207,14 @@ $(document).ready(function () {
         console.log(stop1);
         sendMessageAndCloseSocket(stop1);
         setTimeout(() => {
+            console.log(stop1);
+            sendMessageAndCloseSocket(stop1);
+        }, 3000);
+        console.log(stop2);
+        setTimeout(() => {
             console.log(stop2);
             sendMessageAndCloseSocket(stop2);
-        }, 3000); // Wait for 2000 milliseconds (2 seconds)
+        }, 3000);
         console.log(stop2);
             sendMessageAndCloseSocket(stop2);
         updateTrans();
