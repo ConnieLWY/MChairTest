@@ -6,31 +6,38 @@ $(document).ready(function () {
     // Listen for click events on the "Pay" button within the container with the class "containerPayment"
 
     const controlButtons = document.querySelectorAll('.controlContainer .controlGroup button');
-    const webSocket = new WebSocket('wss://xcl7vxzurl.execute-api.ap-southeast-2.amazonaws.com/demo');
-  
+
     controlButtons.forEach(button => {
         button.addEventListener('click', function () {
-          const message = this.getAttribute('data-message');
-          console.log(message)
+            const message = this.getAttribute('data-message');
+            console.log(message);
+            sendMessageAndCloseSocket(message);
+          });
+    });
+    
+    function sendMessageAndCloseSocket(message) {
+        const webSocket = new WebSocket('wss://xcl7vxzurl.execute-api.ap-southeast-2.amazonaws.com/demo');
+        
+        // Handle WebSocket events
+        webSocket.onopen = function () {
+          console.log('WebSocket connected.');
+          // Send the message once the socket is open
           var payload = JSON.stringify({ "action": "sendMessage", "message": message });
-          console.log(payload)
+          console.log(payload);
           webSocket.send(payload);
-        });
-      });
-  
-      // Handle WebSocket events if needed
-      webSocket.onopen = function () {
-        console.log('WebSocket connected.');
-      };
-  
-      webSocket.onclose = function () {
-        console.log('WebSocket connection closed.');
-      };
-  
-      webSocket.onerror = function (error) {
-        console.error('WebSocket error:', error);
-      };
-
+          // Close the socket after sending the message
+          webSocket.close();
+        };
+      
+        webSocket.onclose = function () {
+          console.log('WebSocket connection closed.');
+        };
+      
+        webSocket.onerror = function (error) {
+          console.error('WebSocket error:', error);
+        };
+      }
+    
     var paybuttons = document.querySelectorAll('.containerPayment button');
     paybuttons.forEach(function (button) {
         button.addEventListener('click', function () {
@@ -165,22 +172,24 @@ $(document).ready(function () {
                         const StopTime = response.StopTime;
                         document.getElementById('total').innerHTML = 'Total Time: ' + duration + ' min';
 
-                        // Send message to WebSocket
-                        const webSocketOn = new WebSocket('wss://xcl7vxzurl.execute-api.ap-southeast-2.amazonaws.com/demo');
-                        webSocketOn.onopen = function(event) {
-                            var payload = JSON.stringify({ "action": "sendMessage", "message": "59 59 06 02 01 BB" });
-                            console.log(payload)
-                            webSocketOn.send(payload);
-                        };
+                        const message1 = "59 59 06 02 01 BB".replace(/ /g, "_");
+                        const message2 = "59 59 06 04 1E DA".replace(/ /g, "_");
 
-                        webSocketOn.onmessage = function(event) {
-                            console.log("Message received from WebSocket:", event.data);
-                            if (event.data == "59 59 06 02 01 BB"){
-                                // Message received from WebSocket, start countdown
-                                console.log('start count down')
-                                startCountdown(StopTime); // Convert minutes to seconds
-                            }
-                        };
+                        console.log(message1);
+                        sendMessageAndCloseSocket(message1);
+                        setTimeout(() => {
+                            console.log(message1);
+                            sendMessageAndCloseSocket(message1);
+                        }, 2000); // Wait for 2000 milliseconds (2 seconds)
+                        console.log(message1);
+                            sendMessageAndCloseSocket(message1);
+                        setTimeout(() => {
+                            console.log(message2);
+                            sendMessageAndCloseSocket(message2);
+                        }, 2000); // Wait for 2000 milliseconds (2 seconds)
+
+                        startCountdown(StopTime);
+
                     },
                     error: function (xhr, status, error) {
                         console.error('Error:', error); // Log error message
@@ -193,23 +202,18 @@ $(document).ready(function () {
     });
 
     $("#stopSession").click(function () {
-        const webSocketStop = new WebSocket('wss://xcl7vxzurl.execute-api.ap-southeast-2.amazonaws.com/demo');
-        webSocketStop.onopen = function(event) {
-            var payload = JSON.stringify({ "action": "sendMessage", "message": "59 59 06 03 01 BC" });
-            var payload2 = JSON.stringify({ "action": "sendMessage", "message": "59 59 06 02 02 BC" });
-            webSocketStop.send(payload);
-            webSocketStop.send(payload2);
-        };
-
-        webSocketStop.onmessage = function(event) {
-            console.log("Message received from WebSocket:", event.data);
-            if (event.data == "59 59 06 02 02 BC"){
-                console.log
-                // Message received from WebSocket, start countdown
-                updateTrans();
-                setTimeout(fetchTrans, 3000);
-            }
-        };
+        const stop1 = "59 59 06 03 01 BC".replace(/ /g, "_");
+        const stop2 = "59 59 06 02 02 BC".replace(/ /g, "_");
+        console.log(stop1);
+        sendMessageAndCloseSocket(stop1);
+        setTimeout(() => {
+            console.log(stop2);
+            sendMessageAndCloseSocket(stop2);
+        }, 3000); // Wait for 2000 milliseconds (2 seconds)
+        console.log(stop2);
+            sendMessageAndCloseSocket(stop2);
+        updateTrans();
+        setTimeout(fetchTrans, 3000);
     });
 
     $("#endSession").click(function () {
@@ -239,16 +243,25 @@ $(document).ready(function () {
                 console.log('Data fetched:', data.StopTime);
                 // Get the stop time from the fetched data
                 var stopTime = new Date(data.StopTime);
-                var currentTime = new Date();
-
-                // Check if the stop time is later than the current time
-                if (stopTime > currentTime) {
-                    document.getElementById('total').innerHTML = 'Total Time: ' + data.Duration + ' min';
-                    // Call startCountdown with the duration in minutes
-                    startCountdown(stopTime);
-                } else {
-                    console.log("Stop time is in the past.");
-                }
+                $.ajax({
+                    url: '/get_time',
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: function (response) {
+                        const currentTime = new Date(response.timeNow);
+                        // Check if the stop time is later than the current time
+                        if (stopTime > currentTime) {
+                            document.getElementById('total').innerHTML = 'Total Time: ' + data.Duration + ' min';
+                            // Call startCountdown with the duration in minutes
+                            startCountdown(stopTime);
+                        } else {
+                            console.log("Stop time is in the past.");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert(error);
+                    }
+                });
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -279,25 +292,25 @@ $(document).ready(function () {
                             const options = {
                                 margin: 0.5,
                                 filename: 'invoice.pdf',
-                                image: { 
-                                  type: 'jpeg', 
-                                  quality: 500
+                                image: {
+                                    type: 'jpeg',
+                                    quality: 500
                                 },
-                                html2canvas: { 
-                                  scale: 1 
+                                html2canvas: {
+                                    scale: 1
                                 },
-                                jsPDF: { 
-                                  unit: 'in', 
-                                  format: 'letter', 
-                                  orientation: 'portrait' 
+                                jsPDF: {
+                                    unit: 'in',
+                                    format: 'letter',
+                                    orientation: 'portrait'
                                 }
-                              }
-                              
-                              $('#invPDF').click(function(e){
+                            }
+
+                            $('#invPDF').click(function (e) {
                                 e.preventDefault();
                                 const element = document.getElementById('print');
                                 html2pdf().from(element).set(options).save();
-                              });
+                            });
                         })
                         .catch(error => {
                             console.error('Error:', error);
@@ -318,41 +331,88 @@ $(document).ready(function () {
             function updateCountdown() {
                 // Calculate the difference between the stop time and current time
                 var stopTime = new Date(StopTime).getTime();
-                var currentTime = new Date().getTime();
-                console.log(currentTime)
-                var timeDifference = stopTime - currentTime;
-    
-                // If the stop time is in the past, set timeDifference to 0
-                timeDifference = Math.max(0, timeDifference);
-    
-                // Update the countdown display
-                $("div.Paycontainer").hide();
-                $("div.controlContainer").removeClass("disabledbutton");
-                var minutes = Math.floor(timeDifference / (1000 * 60));
-                var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-    
-                // Format minutes and seconds to have leading zeros
-                var formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
-                var formattedSeconds = seconds < 10 ? "0" + seconds : seconds;
-    
-                // Display the countdown in "00:00" format
-                console.log(formattedMinutes + ":" + formattedSeconds);
-                // Assuming you have an element with id 'count' to display the countdown
-                document.getElementById('count').innerHTML = formattedMinutes + ":" + formattedSeconds;
-    
-                // Check if the countdown has finished
-                if (timeDifference <= 0) {
-                    clearInterval(timerInterval);
-                    console.log("Countdown finished!");
-                    document.getElementById('count').innerHTML = "00:00";
-                    $("div.Paycontainer").show();
-                    $("div.controlContainer").addClass("disabledbutton");
-                }
+                $.ajax({
+                    url: '/get_time',
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: function (response) {
+                        const currentTime = new Date(response.timeNow)
+                        console.log(currentTime)
+                        var timeDifference = stopTime - currentTime;
+
+                        // If the stop time is in the past, set timeDifference to 0
+                        timeDifference = Math.max(0, timeDifference);
+
+                        // Update the countdown display
+                        $("div.Paycontainer").hide();
+                        $("div.controlContainer").removeClass("disabledbutton");
+                        var minutes = Math.floor(timeDifference / (1000 * 60));
+                        var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                        // Format minutes and seconds to have leading zeros
+                        var formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+                        var formattedSeconds = seconds < 10 ? "0" + seconds : seconds;
+
+                        // Display the countdown in "00:00" format
+                        console.log(formattedMinutes + ":" + formattedSeconds);
+                        // Assuming you have an element with id 'count' to display the countdown
+                        document.getElementById('count').innerHTML = formattedMinutes + ":" + formattedSeconds;
+
+                        // Check if the countdown has finished
+                        if (timeDifference <= 0) {
+                            clearInterval(timerInterval);
+                            console.log("Countdown finished!");
+                            document.getElementById('count').innerHTML = "00:00";
+                            $("div.Paycontainer").show();
+                            $("div.controlContainer").addClass("disabledbutton");
+                            $("#invModal").modal("show");
+                            fetch('/api/inv/KL00101')
+                            .then(response => response.json())
+                            .then(data => {
+                                document.getElementById('invDate').innerHTML = data.StopTime;
+                                document.getElementById('invMCID').innerHTML = 'Massage Chair ' + data.MC_ID;
+                                document.getElementById('invNo').innerHTML = data.CustomTransactionID;
+                                document.getElementById('invLoc').innerHTML = data.Name;
+                                document.getElementById('invPay').innerHTML = 'RM ' + data.Amount;
+                                document.getElementById('invTotal').innerHTML = 'RM ' + data.Amount;
+
+                                const options = {
+                                    margin: 0.5,
+                                    filename: 'invoice.pdf',
+                                    image: {
+                                        type: 'jpeg',
+                                        quality: 500
+                                    },
+                                    html2canvas: {
+                                        scale: 1
+                                    },
+                                    jsPDF: {
+                                        unit: 'in',
+                                        format: 'letter',
+                                        orientation: 'portrait'
+                                    }
+                                }
+
+                                $('#invPDF').click(function (e) {
+                                    e.preventDefault();
+                                    const element = document.getElementById('print');
+                                    html2pdf().from(element).set(options).save();
+                                });
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert(error);
+                    }
+                });
             }
-    
+
             // Initial call to update countdown
             updateCountdown();
-    
+
             // Update the countdown every second
             var timerInterval = setInterval(updateCountdown, 1000); // Update timer every second
         } else {
@@ -360,10 +420,47 @@ $(document).ready(function () {
             return;
         }
     }
+
+    $("#invPDF").on('click', function () {
+        var element = $("#print"); // Get the element you want to capture
+    
+        // Hide the buttons
+        element.find("#invPDF, #endSession").hide();
+    
+        // Check if the element exists and is visible
+        if (element.length > 0 && element.is(":visible")) {
+            html2canvas(element[0]).then(function(canvas) {
+                // Convert the canvas to data URL
+                var imgageData = canvas.toDataURL("image/png");
+    
+                // Create a temporary anchor element to trigger the download
+                var tempLink = document.createElement('a');
+                tempLink.href = imgageData;
+                tempLink.download = "receipt.png";
+    
+                // Trigger the download
+                document.body.appendChild(tempLink);
+                tempLink.click();
+                document.body.removeChild(tempLink);
+    
+                // Show the buttons again
+                element.find("#invPDF, #endSession").show();
+            });
+        } else {
+            console.error("Element is not present or visible");
+        }
+    });
+
+    document.getElementById('main').style.display = "none";
+
     window.onload = function() {
         $(window).scrollTop(0);
     };
 
-    fetchData();
-    fetchTrans();
+    setTimeout(function() {
+        document.getElementById('splash').style.display = "none";
+        document.getElementById('main').style.display = "block";
+        fetchData();
+        fetchTrans();
+    }, 2500);
 });

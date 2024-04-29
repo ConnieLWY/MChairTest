@@ -17,14 +17,23 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
     <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
     <title>Massage Chair Web App</title>
 </head>
 
 <body>
-    <div class="container shadow" style="background: white; max-width: 400px; padding: 0; padding-bottom: 100px;">
+    <div class="container shadow" id="splash" style="background-image: url('static/icons/Splash Screen BG (crop).png'); max-width: 400px; padding: 0; padding-bottom: 100px; height: 100vh; background-size: cover; background-repeat: no-repeat; background-size: 100% 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;">
+        <div style="text-align: center;">
+            <div class="NoWorriesIGotYourBack" style="color: white; font-size: 16px; font-family: rainyhearts; font-weight: 500; word-wrap: break-word;">No worries <br/>I got your back!</div>
+        </div>
+        <img src="{{ url_for('static', filename='icons/Massage GIF.gif') }}" alt="" style="width:356px;height:178px;">
+        <img class="PoweredByRiseLogoTransparentBg1" style="width: 162px; height: 49px; position: absolute; bottom: 30px;" src="{{ url_for('static', filename='icons/Logo.png') }}" />
+    </div>
+
+    <div class="container shadow" id="main" style="background: white; max-width: 400px; padding: 0; padding-bottom: 100px;">
         <div class="Status container pt-4 pb-0"
             style="background: white; max-width: 400px; padding-left: 16px; padding-right: 16px;">
             <img class="PoweredByRiseLogoTransparentBg1 logo my-1"
@@ -57,7 +66,7 @@
                 <div class="containerPayment text-center">
                     <div class="row">
                         <div class="col">
-                            <button class="pay-input RM300" id="5m"
+                            <button class="pay-input RM300" id="1m"
                                 style="border-radius: 12px; border: 0px; width: 100%; height: 68px;">
                                 <div>
                                     <div class="Min"
@@ -903,12 +912,12 @@
             </div>
             <div class="Button" data-bs-toggle="modal" data-bs-target="#stopModal"
                 style="margin-top: 22px; height: 48px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 10px; display: flex">
-                <div class="StyleLayer"
-                    style="align-self: stretch; height: 48px; padding-left: 16px; padding-right: 16px; padding-top: 8px; padding-bottom: 8px; background: #FF5755; border-radius: 12px; justify-content: center; align-items: center; gap: 4px; display: inline-flex">
+                <button class="StyleLayer"
+                    style="border: 0; align-self: stretch; height: 48px; padding-left: 16px; padding-right: 16px; padding-top: 8px; padding-bottom: 8px; background: #FF5755; border-radius: 12px; justify-content: center; align-items: center; gap: 4px; display: inline-flex">
                     <div class="Button"
                         style="color: #101010; font-size: 14px; font-family: Rubik; font-weight: 600; letter-spacing: 0.25px; word-wrap: break-word">
                         Stop</div>
-                </div>
+                </button>
             </div>
         </div>
     </div>
@@ -969,7 +978,7 @@
     <!-- Modal -->
     <div class="modal fade pt-3" id="invModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-sm" style="max-width: 315px;">
+        <div class="modal-dialog modal-sm" style="max-width: 315px;" id="print">
             <div class="modal-content">
                 <div class="Group8 px-4"
                     style="text-align: center; position: relative; max-width: 315px; height: 780px; max-width: 100%; position: relative;">
@@ -977,7 +986,7 @@
                         <img src="{{ url_for('static', filename='icons/button.png') }}" alt="" style="height: 300%;">
                     </div>
                     <div class="ReceiptDetails">
-                        <div class="Details" id="print"
+                        <div class="Details"
                             style="width: 100%; margin: auto; margin-top: 20%; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 20px; display: inline-flex; position: relative;">
                             <div class="Title"
                                 style="width: 100%; text-align: center; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word">
@@ -1001,7 +1010,7 @@
                                     Date</div>
                                 <div id="invDate"
                                     style="float: right; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word;">
-                                    25/04/2024 19:45</div>
+                                    </div>
                                 <div style="clear: both;"></div>
                             </div>
                             <div class="Details" style="width: 100%; position: relative">
@@ -1010,7 +1019,7 @@
                                     Details</div>
                                 <div id="invMCID"
                                     style="float: right; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word;">
-                                    Massage Chair KL00101</div>
+                                    </div>
                                 <div style="clear: both;"></div>
                             </div>
                             <div class="Details" style="width: 100%; position: relative">
@@ -1019,7 +1028,7 @@
                                     Invoice No.</div>
                                 <div id="invNo"
                                     style="float: right; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word;">
-                                    MC20240000001</div>
+                                    </div>
                                 <div style="clear: both;"></div>
                             </div>
                             <div class="Details" style="width: 100%; position: relative">
@@ -1028,8 +1037,7 @@
                                     Location</div>
                                 <div id="invLoc"
                                     style="float: right; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word;">
-                                    Illuminine,
-                                    Kuala Lumpur</div>
+                                    </div>
                                 <div style="clear: both;"></div>
                             </div>
                             <div class="SeparatorLine" style="width: 100%; border: 1.20px #1D1B23 dotted">
@@ -1040,7 +1048,7 @@
                                     Total Payment</div>
                                 <div id="invPay"
                                     style="float: right; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 500; word-wrap: break-word;">
-                                    RM15.00</div>
+                                    </div>
                                 <div style="clear: both;"></div>
                             </div>
                             <div class="Details" style="width: 100%; position: relative">
@@ -1049,7 +1057,7 @@
                                     Total</div>
                                 <div id="invTotal"
                                     style="float: right; color: #1D1B23; font-size: 12px; font-family: Inter; font-weight: 600; word-wrap: break-word">
-                                    RM15.00</div>
+                                    </div>
                                 <div style="clear: both;"></div>
                             </div>
                             <div class="SeparatorLine" style="width: 100%; border: 1.20px #1D1B23 dotted">
@@ -1071,7 +1079,7 @@
                             style="border: 0; align-self: stretch; height: 48px; padding-left: 16px; padding-right: 16px; padding-top: 8px; padding-bottom: 8px; background: #AFAFAF; border-radius: 12px; justify-content: center; align-items: center; gap: 4px; display: inline-flex">
                             <div class="Button"
                                 style="color: #101010; font-size: 14px; font-family: Rubik; font-weight: 500; letter-spacing: 0.25px; word-wrap: break-word">
-                                Download PDF Receipt</div>
+                                Download Receipt</div>
                         </button>
                     </div>
                     <div class="Button"

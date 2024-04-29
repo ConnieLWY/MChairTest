@@ -18,6 +18,17 @@ def get_db_connection():
 def index():
     return render_template('index.html')
 
+@app.route('/get_time', methods=['GET'])
+def get_time():
+    try:
+        timeNow = datetime.now() + timedelta(hours=8)
+
+        return jsonify({'timeNow': timeNow.strftime("%Y-%m-%d %H:%M:%S"),'message': 'Transaction saved successfully'}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'error': str(e)}), 500
+
+
 @app.route('/api/save_transaction', methods=['POST'])
 def save_transaction():
     try:
@@ -28,7 +39,7 @@ def save_transaction():
         mc_id = data.get('mc_id')
         duration_minutes = data.get('duration') # Duration in minutes passed from API
         # start_time = datetime.now() + timedelta(seconds=5)  # Start time is the current time
-        start_time = datetime.now() + timedelta(seconds=5) + timedelta(hours=8)
+        start_time = datetime.now() + timedelta(hours=8) + timedelta(seconds=3)
         stop_time = start_time + timedelta(minutes=duration_minutes) # Calculate stop time
         amount = data.get('amount')
         print(mc_id, duration_minutes, start_time, stop_time)
@@ -52,7 +63,7 @@ def update_transaction(ID):
         # Insert data into the database
         with get_db_connection() as conn:
             cursor = conn.cursor()
-            cursor.execute("UPDATE [Transaction] SET StopTime = ? WHERE MC_ID = ? AND StartTime = (SELECT TOP 1 StartTime FROM [Transaction] WHERE MC_ID = ? ORDER BY StartTime DESC)",
+            cursor.execute("UPDATE [Transaction] SET StopTime = ? WHERE MC_ID = ? AND StartTime = (SELECT TOP 1 StartTime FROM [Transaction] WHERE MC_ID = ? ORDER BY TransactionID DESC)",
                            (stop_time, ID, ID))
             conn.commit()
 
@@ -103,7 +114,7 @@ def get_trans_by_id(ID):
         cursor = conn.cursor()
 
         # Execute SQL query to fetch data for the specified ID
-        cursor.execute("SELECT TOP 1 * FROM [Transaction] WHERE MC_ID = ? ORDER BY StartTime DESC", (ID,))
+        cursor.execute("SELECT TOP 1 * FROM [Transaction] WHERE MC_ID = ? ORDER BY TransactionID DESC", (ID,))
         row = cursor.fetchone()
         print(row)
         # If row is found, format data as a dictionary
@@ -138,7 +149,7 @@ def get_inv_by_id(ID):
         cursor = conn.cursor()
 
         # Execute SQL query to fetch data for the specified ID
-        cursor.execute("SELECT TOP 1 t.*, l.Name, 'MC' + CONVERT(VARCHAR(4), YEAR(t.StartTime)) + RIGHT('0000000' + CONVERT(VARCHAR(7), t.TransactionID), 7) AS CustomTransactionID FROM [Transaction] t JOIN MCLocation l ON t.MC_ID = l.ID WHERE MC_ID = ? ORDER BY t.StartTime DESC;", (ID,))
+        cursor.execute("SELECT TOP 1 t.*, l.Name, 'MC' + CONVERT(VARCHAR(4), YEAR(t.StartTime)) + RIGHT('0000000' + CONVERT(VARCHAR(7), t.TransactionID), 7) AS CustomTransactionID FROM [Transaction] t JOIN MCLocation l ON t.MC_ID = l.ID WHERE MC_ID = ? ORDER BY t.TransactionID DESC;", (ID,))
         row = cursor.fetchone()
         print(row)
         # If row is found, format data as a dictionary
