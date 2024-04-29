@@ -380,29 +380,6 @@ $(document).ready(function () {
                                 document.getElementById('invLoc').innerHTML = data.Name;
                                 document.getElementById('invPay').innerHTML = 'RM ' + data.Amount;
                                 document.getElementById('invTotal').innerHTML = 'RM ' + data.Amount;
-
-                                const options = {
-                                    margin: 0.5,
-                                    filename: 'invoice.pdf',
-                                    image: {
-                                        type: 'jpeg',
-                                        quality: 500
-                                    },
-                                    html2canvas: {
-                                        scale: 1
-                                    },
-                                    jsPDF: {
-                                        unit: 'in',
-                                        format: 'letter',
-                                        orientation: 'portrait'
-                                    }
-                                }
-
-                                $('#invPDF').click(function (e) {
-                                    e.preventDefault();
-                                    const element = document.getElementById('print');
-                                    html2pdf().from(element).set(options).save();
-                                });
                             })
                             .catch(error => {
                                 console.error('Error:', error);
